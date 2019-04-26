@@ -67,6 +67,11 @@ def get_vid_url(vid_url):
         i += 1
 
     sel = input("Choose your media: ")
+    print(i)
+    while int(sel) < 0 or int(sel) > i-1 :
+        sel = input("Please select a valid option: ")
+        continue
+
     sel = int(sel)
     dl_url = dict['videoJsonPlayer']['VSR'][l[sel]]['url']
 
@@ -89,7 +94,6 @@ def dl_vid(dl_url, dl_name):
 def main():
     url = input("Please enter your file url: ")
     json_url = get_json_url(url)
-    print("URL: ", json_url)
     vid = get_vid_url(json_url)
     dl_vid(vid[0], vid[1])
     return 0
