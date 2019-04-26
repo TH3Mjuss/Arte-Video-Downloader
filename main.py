@@ -6,6 +6,7 @@
 
 from urllib.request import urlopen, urlretrieve
 from urllib.parse import unquote, urlparse
+import urllib
 import bs4 as BeautifulSoup
 import re
 import json
@@ -14,10 +15,22 @@ import os
 
 def get_json_url(url):
     # Get source code as BeautifulSoup array
-    url = '//' + url if not url.startswith('//') else url
+    url = '//' + url if (not url.startswith('//') and not url.startswith('http')) else url
     u = urlparse(url)
     u = u._replace(scheme='https')
-    assert u.netloc == 'arte.tv'
+    try:
+        assert 'arte.tv' in u.netloc
+    except:
+        print("Please use a link from Arte website.\n")
+        quit()
+    try:
+        html = urlopen(u.geturl())
+    except urllib.error.HTTPError as e: 
+        print('HTTPError: {}'.format(e.code))
+        quit()
+    except urllib.error.URLError as e:
+        print('URLError: {}'.format(e.reason))
+        quit()
     html = urlopen(u.geturl()).read()
     soup = BeautifulSoup.BeautifulSoup(html, 'html.parser')
 
