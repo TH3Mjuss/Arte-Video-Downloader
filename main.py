@@ -19,21 +19,7 @@ def get_json_url(url):
     url = '//' + url if not url.startswith('//') else url
     u = urlparse(url)
     u = u._replace(scheme='https')
-
-    try:
-        assert u.netloc == 'arte.tv'
-    except:
-        print("Please use a link from Arte website.\n")
-        quit()
-    try:
-        html = urlopen(u.geturl())
-    except urllib.error.HTTPError as e: 
-        print('HTTPError: {}'.format(e.code))
-        quit()
-    except urllib.error.URLError as e:
-        print('URLError: {}'.format(e.reason))
-        quit()
-
+    assert u.netloc == 'arte.tv'
     html = urlopen(u.geturl()).read()
 
     # Get source code as BeautifulSoup array
