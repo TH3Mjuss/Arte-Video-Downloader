@@ -55,7 +55,6 @@ def get_vid_url(vid_url):
     name = dict['videoJsonPlayer']['VTI']
 
     i = 0
-    print()
     for element in dict['videoJsonPlayer']['VSR']:
         quality = dict['videoJsonPlayer']['VSR'][element]['quality']
         mime = dict['videoJsonPlayer']['VSR'][element]['mimeType']
