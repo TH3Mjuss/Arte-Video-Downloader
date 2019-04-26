@@ -67,7 +67,7 @@ def get_vid_url(vid_url):
         i += 1
 
     sel = input("Choose your media: ")
-    print(i)
+    
     while int(sel) < 0 or int(sel) > i-1 :
         sel = input("Please select a valid option: ")
         continue
