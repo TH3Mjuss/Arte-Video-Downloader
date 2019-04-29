@@ -14,7 +14,7 @@ import wget
 import os
 
 def get_json_url(url):
-    # Get source code as BeautifulSoup array
+    # Check for correct URL et source code as BeautifulSoup array
     url = '//' + url if (not url.startswith('//') and not url.startswith('http')) else url
     u = urlparse(url)
     u = u._replace(scheme='https')
@@ -31,6 +31,8 @@ def get_json_url(url):
     except urllib.error.URLError as e:
         print('URLError: {}'.format(e.reason))
         quit()
+    
+    # Get source code as BeautifulSoup array
     html = urlopen(u.geturl()).read()
     soup = BeautifulSoup.BeautifulSoup(html, 'html.parser')
 
@@ -49,11 +51,14 @@ def get_json_url(url):
     return json_url
 
 def get_vid_url(vid_url):
+
+    # Open Json and make a list of the versions 
     file = urlopen(vid_url).read().decode()
     dict = json.loads(file)
     l = list(dict['videoJsonPlayer']['VSR'])
     name = dict['videoJsonPlayer']['VTI']
 
+    # List video versions available
     i = 0
     for element in dict['videoJsonPlayer']['VSR']:
         quality = dict['videoJsonPlayer']['VSR'][element]['quality']
@@ -66,6 +71,7 @@ def get_vid_url(vid_url):
         print(i, ": Quality: ", quality, ", Media Type: ", mime, ", Version: ", libelle, "/", code, ", Resolution: ", width, "x", height)
         i += 1
 
+    # Choose video version
     sel = input("Choose your media: ")
     
     while int(sel) < 0 or int(sel) > i-1 :
@@ -73,18 +79,23 @@ def get_vid_url(vid_url):
         continue
 
     sel = int(sel)
+
     dl_url = dict['videoJsonPlayer']['VSR'][l[sel]]['url']
 
     return dl_url, name.replace('/', ' of ')
 
 def dl_vid(dl_url, dl_name):
+
+    # Set up file name and detect local path
     file_name = dl_name + ".mp4"
     THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+    # Download video to local path
     try:
         print("Downloading, please wait...")
         _dest = os.path.join(THIS_FOLDER, file_name)
         wget.download(dl_url, _dest)
-        print ("Download completed !")
+        print ("\n\nDownload completed !")
     except Exception as e:
         print(e)
 
