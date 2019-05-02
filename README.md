@@ -31,12 +31,16 @@ This script uses python 3 with the following dependencies: `urllib3`, `bs2` and 
 
 ## Changelog
 
-**1.0.0**
+**1.1.0**
+Added option to make another download
 
+**1.0.0**
+Clean initial version
+
+**0.0.2**
 Checks for URL errors
 
 **0.0.1**
-
 Initial Version
 
 ## License
