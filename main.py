@@ -73,7 +73,7 @@ def get_vid_url(vid_url):
 
     # Choose video version
     sel = input("Choose your media: ")
-
+    
     while int(sel) < 0 or int(sel) > i-1 :
         sel = input("Please select a valid option: ")
         continue
@@ -101,12 +101,19 @@ def dl_vid(dl_url, dl_name):
 
     return 0
 
-
 def main():
     url = input("Please enter your file url: ")
+
     json_url = get_json_url(url)
     vid = get_vid_url(json_url)
     dl_vid(vid[0], vid[1])
+
+    redo = input("Would you like to download another video? (YES/no) ")
+    if redo == "Y" or redo == " ":
+        main()
+    else:
+        quit()
+        
     return 0
 
 main()
