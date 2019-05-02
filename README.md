@@ -17,6 +17,8 @@ Arte Video Downloader is a simple Python script that lets you download videos fr
 - Select the options you want (video quality, language, subtitles).
 - Wait for the download to complete, the file will be saved in the scipt's directory. 
 
+![Screenshot](screenshot.png)
+
 ## Contributors
 
 [@zbgn](https://github.com/zbgn)
